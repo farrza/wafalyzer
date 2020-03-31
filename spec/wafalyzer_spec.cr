@@ -1,9 +1,12 @@
 require "./spec_helper"
+require "./waf_specs/*"
 
-describe Wafalyzer do
-  # TODO: Write tests
+WAF_SPECS = [
+  CloudFlareSpec,
+  CerberSpec,
+  WebKnightSpec,
+]
 
-  it "works" do
-    true.should eq(true)
-  end
-end
+{% for waf_spec in WAF_SPECS %}
+  {{ waf_spec }}.new.run
+{% end %}
