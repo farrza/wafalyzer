@@ -3,7 +3,7 @@ name: Wafalyzer
 on:
   push:
     branches:
-      - master
+      - dima/test-ci
 
 jobs:
   build:
