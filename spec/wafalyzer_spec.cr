@@ -2,6 +2,11 @@ require "./spec_helper"
 require "./waf_specs/*"
 
 WAF_SPECS = [
+  AeSecureSpec,
+  AireeSpec,
+  AirlockSpec,
+  AlertLogicSpec,
+  AliYunDunSpec,
   CloudFlareSpec,
   CerberSpec,
   WebKnightSpec,

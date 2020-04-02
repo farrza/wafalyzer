@@ -4,7 +4,7 @@ require "../reports/report"
 module Wafalyzer
   class CloudFlare < Waf
     def name : String
-      "CloudFlare"
+      "CloudFlare (Cloudflare Inc.)"
     end
 
     HEADERS = {
@@ -15,7 +15,7 @@ module Wafalyzer
     }
 
     COOKIES = {
-      {name: "__cfduid"},
+      {regex: /__cfduid/},
     }
 
     def analyze(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response))
@@ -26,7 +26,7 @@ module Wafalyzer
         issue.header schema if header(responses, schema[:name], schema[:regex])
       end
       COOKIES.each do |schema|
-        issue.cookie schema if cookie(responses, schema[:name])
+        issue.cookie schema if cookie(responses, schema[:regex])
       end
       issue
     end

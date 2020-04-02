@@ -7,7 +7,7 @@ module Wafalyzer
       @state = false
       @headers = Array(NamedTuple(name: String, regex: Regex)).new
       @contents = Array(NamedTuple(regex: Regex)).new
-      @cookies = Array(NamedTuple(name: String)).new
+      @cookies = Array(NamedTuple(regex: Regex)).new
       @statuses = Array(NamedTuple(code: Int32)).new
       @reasons = Array(NamedTuple(reason: String)).new
     end
@@ -34,7 +34,7 @@ module Wafalyzer
       @state ||= true
     end
 
-    def cookie(schema : NamedTuple(name: String))
+    def cookie(schema : NamedTuple(regex: Regex))
       @cookies << schema
       @state ||= true
     end
