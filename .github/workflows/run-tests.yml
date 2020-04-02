@@ -1,0 +1,15 @@
+name: Wafalyzer
+
+on:
+  push:
+    branches:
+      - dima/test-ci
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    container: crystallang/crystal
+    steps:
+      - uses: actions/checkout@v1
+      - name: Run tests
+        run: crystal spec
