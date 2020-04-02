@@ -1,6 +1,10 @@
 name: wafalyzer
 version: 0.1.0
 
+targets:
+  wafalyzer:
+    main: src/wafalyzer.cr
+
 authors:
   - Farrza <farisseferagic@gmail.com>
 
