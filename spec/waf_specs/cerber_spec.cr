@@ -20,7 +20,7 @@ class CerberSpec < WafSpec
     @logger.info("Spec started for #{waf.name}")
     describe Wafalyzer::Cerber do
       it "detects #{waf.name} WAF" do
-        waf.detect(responses).should be_true
+        waf.analyze(responses).positive?.should be_true
         @logger.info("Success for #{waf.name}")
       end
     end

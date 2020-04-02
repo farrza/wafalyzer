@@ -3,7 +3,6 @@ require "http/client"
 require "logger"
 
 require "../src/wafalyzer/**"
-require "./payloads"
 
 abstract class WafSpec
   abstract def target

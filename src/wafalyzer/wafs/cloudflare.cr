@@ -1,8 +1,9 @@
 require "../waf"
+require "../reports/report"
 
 module Wafalyzer
   class CloudFlare < Waf
-    def name
+    def name : String
       "CloudFlare"
     end
 
@@ -17,14 +18,17 @@ module Wafalyzer
       {name: "__cfduid"},
     }
 
-    def detect(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response))
+    def analyze(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response))
+      issue = Issue.new
+      issue.name = name
+
       HEADERS.each do |schema|
-        return true if header(responses, schema[:name], schema[:regex])
+        issue.header schema if header(responses, schema[:name], schema[:regex])
       end
       COOKIES.each do |schema|
-        return true if cookie(responses, schema[:name])
+        issue.cookie schema if cookie(responses, schema[:name])
       end
-      false
+      issue
     end
   end
 end

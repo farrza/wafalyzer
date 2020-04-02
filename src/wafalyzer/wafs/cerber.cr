@@ -2,7 +2,7 @@ require "../waf"
 
 module Wafalyzer
   class Cerber < Waf
-    def name
+    def name : String
       "WP Cerber Security (Cerber Tech)"
     end
 
@@ -14,11 +14,14 @@ module Wafalyzer
       {regex: /<title>403 Access Forbidden/},
     }
 
-    def detect(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response))
+    def analyze(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response))
+      issue = Issue.new
+      issue.name = name
+
       CONTENTS.each do |schema|
-        return true if content(responses, schema[:regex])
+        issue.content schema if content(responses, schema[:regex])
       end
-      false
+      issue
     end
   end
 end
