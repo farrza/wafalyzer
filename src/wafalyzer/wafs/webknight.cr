@@ -2,7 +2,7 @@ require "../waf"
 
 module Wafalyzer
   class WebKnight < Waf
-    def name
+    def name : String
       "WebKnight (AQTRONIX)"
     end
 
@@ -25,17 +25,20 @@ module Wafalyzer
       {reason: "Hack Not Found"},
     }
 
-    def detect(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response))
+    def analyze(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response))
+      issue = Issue.new
+      issue.name = name
+
       CONTENTS.each do |schema|
-        return true if content(responses, schema[:regex])
+        issue.content schema if content(responses, schema[:regex])
       end
       STATUSES.each do |schema|
-        return true if status(responses, schema[:code])
+        issue.status schema if status(responses, schema[:code])
       end
       REASONS.each do |schema|
-        return true if reason(responses, schema[:reason])
+        issue.reason schema if reason(responses, schema[:reason])
       end
-      false
+      issue
     end
   end
 end

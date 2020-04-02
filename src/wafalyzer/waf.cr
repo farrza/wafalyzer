@@ -1,11 +1,13 @@
+require "./reports/issue"
+
 module Wafalyzer
   abstract class Waf
-    abstract def name
-    abstract def detect(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response))
+    abstract def name : String
+    abstract def analyze(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response))
 
-    def header(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response), header : String, regex : Regex, attack : Bool = false) : Bool
+    def header(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response), name : String, regex : Regex, attack : Bool = false) : Bool
       response = attack ? responses[:attack] : responses[:normal]
-      if value = response.headers[header]?
+      if value = response.headers[name]?
         return true if regex.match(value)
       end
       false
@@ -19,9 +21,9 @@ module Wafalyzer
       false
     end
 
-    def cookie(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response), code : String, attack : Bool = false) : Bool
+    def cookie(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response), name : String, attack : Bool = false) : Bool
       response = attack ? responses[:attack] : responses[:normal]
-      return true if response.cookies[code]?
+      return true if response.cookies[name]?
       false
     end
 

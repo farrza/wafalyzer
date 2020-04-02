@@ -1,12 +1,12 @@
 require "../spec_helper.cr"
 
-class CloudFlareSpec < WafSpec
+class WebKnightSpec < WafSpec
   def target
-    "https://www.cloudflare.com/"
+    "https://www.aqtronix.com/"
   end
 
   def waf
-    Wafalyzer::CloudFlare.new
+    Wafalyzer::WebKnight.new
   end
 
   def responses
@@ -18,7 +18,7 @@ class CloudFlareSpec < WafSpec
 
   def run
     @logger.info("Spec started for #{waf.name}")
-    describe Wafalyzer::CloudFlare do
+    describe Wafalyzer::WebKnight do
       it "detects #{waf.name} WAF" do
         waf.analyze(responses).positive?.should be_true
         @logger.info("Success for #{waf.name}")
