@@ -21,9 +21,11 @@ module Wafalyzer
       false
     end
 
-    def cookie(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response), name : String, attack : Bool = false) : Bool
+    def cookie(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response), regex : Regex, attack : Bool = false) : Bool
       response = attack ? responses[:attack] : responses[:normal]
-      return true if response.cookies[name]?
+      response.cookies.to_h.each_key do |cookie|
+        return true if regex.match(cookie)
+      end
       false
     end
 

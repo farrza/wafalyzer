@@ -46,9 +46,9 @@ module Wafalyzer
     end
 
     def log
-      @logger.info("Detected:")
+      puts "[!] Detected:"
       @issues.each do |issue|
-        @logger.info(issue.name) if issue.positive?
+        puts "- " + issue.name if issue.positive?
       end
     end
   end

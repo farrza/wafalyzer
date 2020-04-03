@@ -10,9 +10,7 @@ module Wafalyzer
     def self.target(url : String)
       report = Report.new(url)
 
-      @@logger.info("====================| Wafalyzer |====================")
-      @@logger.info("Analyzing target: #{report.target}")
-      @@logger.info("-----------------------------------------------------")
+      puts "[*] Analyzing #{report.target}"
 
       responses = {
         normal: HTTP::Client.get(url),
@@ -25,15 +23,15 @@ module Wafalyzer
 
       report.log
 
-      @@logger.info("=====================================================")
-
       report
     end
 
     def self.targets(urls : Array(String))
+      reports = Array(Report).new
       urls.each do |url|
-        self.target(url)
+        reports << self.target(url)
       end
+      reports
     end
   end
 end
