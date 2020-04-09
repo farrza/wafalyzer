@@ -10,6 +10,7 @@ module Wafalyzer
       @cookies = Array(NamedTuple(regex: Regex)).new
       @statuses = Array(NamedTuple(code: Int32)).new
       @reasons = Array(NamedTuple(reason: String)).new
+      @alternative = Array(String).new
     end
 
     def state
@@ -46,6 +47,11 @@ module Wafalyzer
 
     def reason(schema : NamedTuple(reason: String))
       @reasons << schema
+      @state ||= true
+    end
+
+    def alternative(params : String)
+      @alternative << params
       @state ||= true
     end
 

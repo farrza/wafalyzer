@@ -40,5 +40,11 @@ module Wafalyzer
       return true if response.status_message == reason
       false
     end
+
+    def generic(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response)) : Bool
+      response = attack ? responses[:attack] : responses[:normal]
+      return true if response.status_message == reason
+      false
+    end
   end
 end
