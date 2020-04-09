@@ -7,7 +7,7 @@ module Wafalyzer
     @issues : Array(Issue)
     @logger = Logger.new(STDOUT)
 
-    def initialize(@target : String)
+    def initialize(@target : String = "")
       @issues = Array(Issue).new
     end
 
@@ -19,8 +19,21 @@ module Wafalyzer
       @issues
     end
 
+    def <<(report : Report)
+      report.issues.each do |issue|
+        @issues << issue if !issue.name.empty?
+      end
+    end
+
     def <<(issue : Issue)
-      @issues << issue
+      @issues << issue if !issue.name.empty?
+    end
+
+    def self.positive?
+      @issues.each do |issue|
+        return true if issue.positive?
+      end
+      false
     end
 
     def positive?
@@ -46,9 +59,13 @@ module Wafalyzer
     end
 
     def log
-      puts "[!] Detected:"
-      @issues.each do |issue|
-        puts "- " + issue.name if issue.positive?
+      if self.positive?
+        puts "\e[36m[✔] Detected:\e[0m"
+        @issues.each do |issue|
+          puts "\e[37m- " + issue.name + "\e[0m" if issue.positive?
+        end
+      else
+        puts "\e[31m[✘] No WAF was detected!\e[0m"
       end
     end
   end
