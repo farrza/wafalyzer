@@ -1,4 +1,5 @@
-require "../spec_helper.cr"
+require "../../spec_helper.cr"
+require "./responses/*"
 
 class CloudFlareSpec < WafSpec
   def target
@@ -11,8 +12,8 @@ class CloudFlareSpec < WafSpec
 
   def responses
     {
-      normal: HTTP::Client.get(target),
-      attack: HTTP::Client.get(target + "?" + QUERY),
+      normal: normal_response,
+      attack: attack_response,
     }
   end
 
