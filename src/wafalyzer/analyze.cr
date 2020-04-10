@@ -55,7 +55,7 @@ module Wafalyzer
       report = Report.new
 
       redirection = false
-      redirection |= self.redirect?(responses[:attack].status_code)
+      redirection |= responses[:attack].status.redirection?
 
       if redirection
         report << self.spirit_bomb_attack(target, responses)
@@ -71,10 +71,6 @@ module Wafalyzer
     def self.valid_target?(target : String)
       uri = URI.parse target
       uri.absolute?
-    end
-
-    def self.redirect?(status_code : Int)
-      status_code >= 300 & status_code <= 308
     end
 
     def self.spirit_bomb_attack(target : String, responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response))
@@ -104,7 +100,7 @@ module Wafalyzer
       if response.status_code != responses[:normal].status_code
         puts "Different status code after #{name}"
 
-        if self.redirect?(response.status_code)
+        if response.status.redirection?
           path = response.headers["Location"]? # improve this
           if path
             redirect_target = target + path
