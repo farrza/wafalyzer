@@ -9,6 +9,7 @@ module Wafalyzer
 
     def self.target(target : String)
       report = Report.new(target)
+
       if !self.valid_target? target
         puts "\e[31m[✘] #{target} is not a valid target!\e[0m"
         return report
@@ -43,8 +44,9 @@ module Wafalyzer
 
     def self.standard_analysis(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response)) : Report
       report = Report.new
-      WAFS.each_value do |waf|
-        report << waf.analyze(responses)
+      WAF_LIBRARY.each_value do |waf|
+        waf << responses
+        report << waf.detected?
       end
       report
     end
