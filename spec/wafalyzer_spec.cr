@@ -1,5 +1,5 @@
+require "spec"
 require "logger"
-require "./spec_helper"
 require "../src/wafalyzer/wafs"
 
 module Wafalyzer

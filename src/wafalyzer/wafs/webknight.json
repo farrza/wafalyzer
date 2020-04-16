@@ -1,0 +1,59 @@
+{
+  "name": "WebKnight",
+  "manufacturer": "Aqtronix",
+  "website": "https://www.aqtronix.com",
+  "fingerprints": {
+    "headers": {},
+    "contents": [
+    "WebKnight Application Firewall Alert",
+    "What is webknight\\?",
+    "AQTRONIX WebKnight is an application firewall",
+    "WebKnight will take over and protect",
+    "aqtronix\\.com\/WebKnight",
+    "AQTRONIX.{0,10}?WebKnight"
+    ],
+    "cookies": [],
+    "statuses": [
+      999,
+      404
+    ],
+    "reasons": [
+      "No Hacking",
+      "Hack Not Found"
+    ]
+  },
+  "spec": {
+    "responses": {
+      "normal": {
+        "headers": {
+          "Cache-Control": "private",
+          "Content-Length": "6923",
+          "Content-Type": "text/html;charset=UTF-8",
+          "X-Frame-Options": "SAMEORIGIN",
+          "X-Content-Type-Options": "nosniff",
+          "Server": "WWW Server/1.1",
+          "X-XSS-Protection": "1; mode=block",
+          "Set-Cookie": "ASPSESSIONIDAUQDCSCR=PHKMOLOALCAINKDFLALFEAGA; secure; path=/; HttpOnly; Secure",
+          "Date": "Thu, 16 Apr 2020 13:58:12 GMT"
+        },
+        "body": "",
+        "status": 200,
+        "reason": "" 
+      },
+      "attack": {
+        "headers": {
+          "Server": "WWW Server/1.1",
+          "Date": "Thu, 16 Apr 2020 13:58:17 GMT",
+          "Content-Type": "text/html; charset=windows-1252",
+          "Content-Length": "1160",
+          "Pragma": "no-cache",
+          "Cache-control": "no-cache",
+          "Expires": "Thu, 16 Apr 2020 13:58:17 GMT"
+        },
+        "body": "<BR><B>What is WebKnight?</B><BR>AQTRONIX WebKnight is an application firewall for web servers and is released under the GNU General Public License. It is an ISAPI filter for securing web servers by blocking certain requests. If an alert is triggered WebKnight will take over and protect the web server.<BR><BR>",
+        "status": 404,
+        "reason": "Hack Not Found" 
+      }
+    }
+  }
+}
