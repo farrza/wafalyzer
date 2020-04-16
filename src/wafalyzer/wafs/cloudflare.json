@@ -1,0 +1,60 @@
+{
+  "name": "CloudFlare",
+  "manufacturer": "CloudFlare Inc.",
+  "website": "https://www.cloudflare.com",
+  "fingerprints": {
+    "headers": {
+      "server": "cloudflare",
+      "cf-ray": "[a-z0-9]{16}-BUD",
+      "cf-cache-status": "^HIT$|^MISS$|^EXPIRED$|^STALE$|^BYPASS$|^REVALIDATED$|^UPDATING$|^DYNAMIC$",
+      "expect-ct": "report-uri=\"https://report-uri\\.cloudflare\\.com/cdn-cgi/beacon/expect-ct\""
+    },
+    "contents": [],
+    "cookies": ["__cfduid"],
+    "statuses": [],
+    "reasons": []
+  },
+  "spec": {
+    "responses": {
+      "normal": {
+        "headers": {
+            "date": "Fri, 10 Apr 2020 10:57:25 GMT",
+            "content-type": "text/html; charset=utf-8",
+            "set-cookie": "__cfduid=d95b7987c07dcc112ddaec44656f6b2d81586516245; expires=Sun, 10-May-20 10:57:25 GMT; path=/; domain=.www.cloudflare.com; HttpOnly; SameSite=Lax; Secure",
+            "cf-ray": "581bf268eafcd40f-BUD",
+            "age": "15",
+            "cache-control": "public, s-max-age=30",
+            "etag": "W/\"1d6ef-gzNW8/ztqJXkFl83kw39y9R3pEk\"",
+            "strict-transport-security": "max-age=31536000",
+            "vary": "Accept-Encoding",
+            "cd-cache-status": "HIT",
+            "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+            "x-content-type-options": "nosniff",
+            "x-frame-options": "SAMEORIGIN",
+            "x-xss-protection": "1; mode=block",
+            "server": "cloudflare",
+            "alt-svc": "h3-27=\":443\"; ma=86400, h3-25=\":443\"; ma=86400, h3-24=\":443\"; ma=86400, h3-23=\":443\"; ma=86400"
+        },
+        "body": "",
+        "status": 200,
+        "reason": "" 
+      },
+      "attack": {
+        "headers": {
+            "date"            : "Fri, 10 Apr 2020 11:38:35 GMT",
+            "content-type"    : "text/html; charset=utf-8",
+            "cache-control"   : "max-age=15",
+            "expires"         : "Fri, 10 Apr 2020 11:38:50 GMT",
+            "x-frame-options" : "SAMEORIGIN",
+            "expect-ct"       : "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+            "server"          : "cloudflare",
+            "cf-ray"          : "81c2eb4bf65d413-BUD",
+            "alt-svc"         : "\"h3-27=\":443\"; ma=86400, h3-25=\":443\"; ma=86400, h3-24=\":443\"; ma=86400, h3-23=\":443\"; ma=86400"
+        },
+        "body": "",
+        "status": 403,
+        "reason": "" 
+      }
+    }
+  }
+}

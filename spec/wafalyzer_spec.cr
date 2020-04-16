@@ -1,27 +1,16 @@
-require "./spec_helper"
-require "./waf_specs/*"
+require "spec"
+require "logger"
+require "../src/wafalyzer/wafs"
 
-WAF_SPECS = [
-  AeSecureSpec,
-  AireeSpec,
-  AirlockSpec,
-  AlertLogicSpec,
-  AliYunDunSpec,
-  AnquanbaoSpec,
-  AnYuSpec,
-  ApproachSpec,
-  ArmorSpec,
-  ArvanCloudSpec,
-  AspaSpec,
-  AspNetGenSpec,
-  AstraSpec,
-  AWSSpec,
-  AzionSpec,
-  CloudFlareSpec,
-  CerberSpec,
-  WebKnightSpec,
-]
+module Wafalyzer
+  logger = Logger.new(STDOUT)
 
-{% for waf_spec in WAF_SPECS %}
-  {{ waf_spec }}.new.run
-{% end %}
+  describe Wafalyzer::Waf do
+    WAF_LIBRARY.each_value do |waf|
+      it "detects #{waf.name} WAF" do
+        waf.test.should be_true
+        logger.info("Success for #{waf.name}")
+      end
+    end
+  end
+end
