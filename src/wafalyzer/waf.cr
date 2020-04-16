@@ -100,7 +100,7 @@ module Wafalyzer
       issue
     end
 
-    def check_header(name : String, regex : Regex, attack_response : HTTP::Client::Response = @attack_response, normal_response : HTTP::Client::Response = @normal_response, attack : Bool = false)
+    def check_header(name : String, regex : Regex, normal_response : HTTP::Client::Response = @normal_response, attack_response : HTTP::Client::Response = @attack_response, attack : Bool = false)
       response = attack ? attack_response : normal_response
       if value = response.headers[name]?
         return true if regex.match(value)
@@ -108,7 +108,7 @@ module Wafalyzer
       false
     end
 
-    def check_content(regex : Regex, attack_response : HTTP::Client::Response = @attack_response, normal_response : HTTP::Client::Response = @normal_response, attack : Bool = true)
+    def check_content(regex : Regex, normal_response : HTTP::Client::Response = @normal_response, attack_response : HTTP::Client::Response = @attack_response, attack : Bool = true)
       response = attack ? attack_response : normal_response
       if response.body?
         return true if regex.match(response.body)
@@ -116,7 +116,7 @@ module Wafalyzer
       false
     end
 
-    def check_cookie(regex : Regex, attack_response : HTTP::Client::Response = @attack_response, normal_response : HTTP::Client::Response = @normal_response, attack : Bool = false)
+    def check_cookie(regex : Regex, normal_response : HTTP::Client::Response = @normal_response, attack_response : HTTP::Client::Response = @attack_response, attack : Bool = false)
       response = attack ? attack_response : normal_response
       response.cookies.to_h.each_key do |cookie|
         return true if regex.match(cookie)
@@ -124,13 +124,13 @@ module Wafalyzer
       false
     end
 
-    def check_status(code : Int32, attack_response : HTTP::Client::Response = @attack_response, normal_response : HTTP::Client::Response = @normal_response, attack : Bool = true)
+    def check_status(code : Int32, normal_response : HTTP::Client::Response = @normal_response, attack_response : HTTP::Client::Response = @attack_response, attack : Bool = true)
       response = attack ? attack_response : normal_response
       return true if response.status_code == code
       false
     end
 
-    def check_reason(reason : String, attack_response : HTTP::Client::Response = @attack_response, normal_response : HTTP::Client::Response = @normal_response, attack : Bool = true)
+    def check_reason(reason : String, normal_response : HTTP::Client::Response = @normal_response, attack_response : HTTP::Client::Response = @attack_response, attack : Bool = true)
       response = attack ? attack_response : normal_response
       return true if response.status_message == reason
       false
@@ -142,27 +142,27 @@ module Wafalyzer
 
       @fingerprints[:headers].each do |name, regex|
         header = {name: name, regex: regex}
-        issue.header header if check_header(name, regex, @normal_response_example, @attack_response_example)
+        issue.header header if check_header(name, regex, normal_response = @normal_response_example, attack_response = @attack_response_example)
       end
 
       @fingerprints[:contents].each do |regex|
         content = {regex: regex}
-        issue.content content if check_content(regex, @normal_response_example, @attack_response_example)
+        issue.content content if check_content(regex, normal_response = @normal_response_example, attack_response = @attack_response_example)
       end
 
       @fingerprints[:cookies].each do |regex|
         cookie = {regex: regex}
-        issue.cookie cookie if check_cookie(regex, @normal_response_example, @attack_response_example)
+        issue.cookie cookie if check_cookie(regex, normal_response = @normal_response_example, attack_response = @attack_response_example)
       end
 
       @fingerprints[:statuses].each do |code|
         status = {code: code}
-        issue.status status if check_status(code, @normal_response_example, @attack_response_example)
+        issue.status status if check_status(code, normal_response = @normal_response_example, attack_response = @attack_response_example)
       end
 
       @fingerprints[:reasons].each do |reason|
         status_message = {reason: reason}
-        issue.reason status_message if check_reason(reason, @normal_response_example, @attack_response_example)
+        issue.reason status_message if check_reason(reason, normal_response = @normal_response_example, attack_response = @attack_response_example)
       end
       issue.positive?
     end

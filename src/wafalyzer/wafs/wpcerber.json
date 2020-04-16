@@ -1,0 +1,51 @@
+{
+  "name": "WP Cerber Security",
+  "manufacturer": "Cerber Tech",
+  "website": "https://www.wpcerber.com",
+  "fingerprints": {
+    "headers": {},
+    "contents": [
+      "your request looks suspiciously similar to automated",
+      "our server stopped processing your request",
+      "We.re sorry.{0,10}?you are not allowed to proceed",
+      "requests from spam posting software",
+      "<title>403 Access Forbidden"
+    ],
+    "cookies": [],
+    "statuses": [],
+    "reasons": []
+  },
+  "spec": {
+    "responses": {
+      "normal": {
+        "headers": {
+          "server": "nginx",
+            "date": "Wed, 15 Apr 2020 18:20:13 GMT",
+            "content-type": "text/html; charset=UTF-8",
+            "content-length": "36660",
+            "last-modified": "Fri, 28 Feb 2020 10:37:24 GMT",
+            "etag": "\"8f34-59fa06c4b2100\"",
+            "accept-ranges": "bytes",
+            "strict-transport-security": "max-age=31536000; includeSubDomains;"
+        },
+        "body": "",
+        "status": 200,
+        "reason": "" 
+      },
+      "attack": {
+        "headers": {
+          "server": "nginx",
+          "date": "Wed, 15 Apr 2020 18:30:36 GMT",
+          "content-type": "text/html; charset=UTF-8",
+          "content-length": "1828",
+          "vary": "Cookie",
+          "last-modified": "Wed, 15 Apr 2020 18:30:36 GMT",
+          "cache-control": "max-age=3600, must-revalidate"
+        },
+        "body": "your request looks suspiciously similar to automated",
+        "status":403,
+        "reason": "" 
+      }
+    }
+  }
+}

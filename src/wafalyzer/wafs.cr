@@ -4,6 +4,8 @@ require "./wafparser"
 module Wafalyzer
   WAF_FILES = {
     "cloudflare.json",
+    "webknight.json",
+    "wpcerber.json",
   }
 
   WAF_LIBRARY = Hash(String, Waf).new
