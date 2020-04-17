@@ -1,0 +1,53 @@
+{
+  "name": "ArvanCloud",
+  "manufacturer": "ArvanCloud",
+  "website": "https://www.arvancloud.com",
+  "fingerprints": {
+    "headers": {
+      "Server": "ArvanCloud"
+    },
+    "contents": [],
+    "cookies": [],
+    "statuses": [],
+    "reasons": []
+  },
+  "spec": {
+    "target": "https://www.arvancloud.com",
+    "responses": {
+      "normal": {
+        "headers": {
+          "Server": "ArvanCloud",
+          "Date": "Fri, 17 Apr 2020 22:08:41 GMT",
+          "Content-Type": "text/html",
+          "Content-Length": "0",
+          "Connection": "close",
+          "Location": "/",
+          "Set-Cookie": "__acsco=0c1f2abdf53ab6c3079926eda67e4a9c; Path=/; HttpOnly; Max-Age=10000; Domain=arvancloud.com",
+          "AR-PoweredBy": "Arvan Cloud (arvancloud.com)",
+          "AR-ATIME": "0.002",
+          "AR-Request-ID": "7530effe86e5d17875e74c21dd088cdc"
+        },
+        "body": "",
+        "status": 307,
+        "reason": "Temporary Redirect"
+      },
+      "attack": {
+        "headers": {
+          "Server": "ArvanCloud",
+          "Date": "Fri, 17 Apr 2020 22:08:46 GMT",
+          "Content-Type": "text/html",
+          "Content-Length": "0",
+          "Connection": "close",
+          "Location": "/?a=<script>alert(\"XSS\");</script>&b=UNION+SELECT+ALL+FROM+information_schema+AND+%27+or+SLEEP%285%29+or+%27&c=../../../../etc/passwd",
+          "Set-Cookie": "__acsco=0c1f2abdf53ab6c3079926eda67e4a9c; Path=/; HttpOnly; Max-Age=10000; Domain=arvancloud.com",
+          "AR-PoweredBy": "Arvan Cloud (arvancloud.com)",
+          "AR-ATIME": "0.001",
+          "AR-Request-ID": "8dbf44dda8d9464fd9c12b8d2bef4568"
+        },
+        "body": "",
+        "status": 307,
+        "reason": "Temporary Redirect"
+      }
+    }
+  }
+}
