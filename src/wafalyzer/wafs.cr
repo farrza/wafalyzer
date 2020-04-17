@@ -3,6 +3,7 @@ require "./wafparser"
 # Register existing WAF-s here
 module Wafalyzer
   WAF_FILES = {
+    "arvancloud.json",
     "cloudflare.json",
     "webknight.json",
     "wpcerber.json",
