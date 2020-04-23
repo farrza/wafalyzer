@@ -64,14 +64,21 @@ module Wafalyzer
       @name
     end
 
+    def manufacturer
+      @manufacturer
+    end
+
+    def website
+      @website
+    end
+
     def <<(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response))
       @normal_response = responses[:normal]
       @attack_response = responses[:attack]
     end
 
     def detected?
-      issue = Issue.new
-      issue.name = name
+      issue = Issue.new(name, manufacturer, website)
 
       @fingerprints[:headers].each do |name, regex|
         header = {name: name, regex: regex}

@@ -1,11 +1,8 @@
-require "logger"
-
 require "./issue"
 
 module Wafalyzer
   class Report
     @issues : Array(Issue)
-    @logger = Logger.new(STDOUT)
 
     def initialize(@target : String = "")
       @issues = Array(Issue).new
@@ -66,6 +63,29 @@ module Wafalyzer
         end
       else
         puts "\e[31m[✘] No WAF was detected!\e[0m"
+      end
+    end
+
+    def to_json(json : JSON::Builder)
+      counter = 0
+      json.object do
+        json.field "host", "#{@target}"
+        json.field "detected" do
+          json.object do
+            @issues.each do |issue|
+              if issue.positive?
+                json.field "#{counter.to_s}" do
+                  json.object do
+                    json.field "name", "#{issue.name}"
+                    json.field "manufacturer", "#{issue.manufacturer}"
+                    json.field "website", "#{issue.website}"
+                  end
+                end
+                counter += 1
+              end
+            end
+          end
+        end
       end
     end
   end

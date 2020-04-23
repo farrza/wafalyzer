@@ -1,9 +1,10 @@
 module Wafalyzer
   class Issue
     property name
+    property manufacturer
+    property website
 
-    def initialize
-      @name = ""
+    def initialize(@name : String = "", @manufacturer : String = "", @website : String = "")
       @state = false
       @headers = Array(NamedTuple(name: String, regex: Regex)).new
       @contents = Array(NamedTuple(regex: Regex)).new

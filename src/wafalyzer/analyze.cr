@@ -1,12 +1,8 @@
-require "logger"
-
 require "./wafs"
 require "./reports/report"
 
 module Wafalyzer
   class Analyze
-    @@logger = Logger.new(STDOUT)
-
     def self.target(target : String)
       report = Report.new(target)
 
