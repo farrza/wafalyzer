@@ -67,22 +67,13 @@ module Wafalyzer
     end
 
     def to_json(json : JSON::Builder)
-      counter = 0
-      json.object do
-        json.field "host", "#{@target}"
-        json.field "detected" do
-          json.object do
-            @issues.each do |issue|
-              if issue.positive?
-                json.field "#{counter.to_s}" do
-                  json.object do
-                    json.field "name", "#{issue.name}"
-                    json.field "manufacturer", "#{issue.manufacturer}"
-                    json.field "website", "#{issue.website}"
-                  end
-                end
-                counter += 1
-              end
+      json.array do
+        @issues.each do |issue|
+          if issue.positive?
+            json.object do
+              json.field "name", "#{issue.name}"
+              json.field "manufacturer", "#{issue.manufacturer}"
+              json.field "website", "#{issue.website}"
             end
           end
         end
