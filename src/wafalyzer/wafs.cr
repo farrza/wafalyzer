@@ -16,7 +16,9 @@ module Wafalyzer
   WAF_FILES.each do |waf_file|
     path = Path.new(directory + waf_file)
 
-    WafParser.parse(path) do |waf|
+    waf = WafParser.parse(path)
+
+    if waf
       WAF_LIBRARY[waf.name.downcase] = waf
     end
   end

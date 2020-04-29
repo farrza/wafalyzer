@@ -3,7 +3,7 @@ version: 0.1.0
 
 targets:
   wafalyzer:
-    main: src/wafalyzer.cr
+    main: src/cli.cr
 
 authors:
   - Farrza <farisseferagic@gmail.com>
@@ -11,3 +11,4 @@ authors:
 crystal: 0.34.0
 
 license: MIT
+
