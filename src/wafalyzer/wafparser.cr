@@ -3,14 +3,17 @@ require "./waf"
 
 class WafParser
   # :TODO handle file structure validation
-  def self.parse_json(path : Path)
+  def self.parse_json_from_string(json : String)
+    JSON.parse(json)
+  end
+  def self.parse_json_from_path(path : Path)
     json = File.open(path) do |file|
       JSON.parse(file)
     end
   end
 
-  def self.parse(path : Path)
-    json = self.parse_json(path)
+  def self.parse(json : String)
+    json = self.parse_json_from_string(json)
 
     if self.valid(json)
       name = json["name"].as_s
@@ -54,7 +57,7 @@ class WafParser
         self.build_response(attack_response)
       )
     else
-      puts "Invalid file format for #{path}"
+      puts "Invalid file format!"
     end
   end
 

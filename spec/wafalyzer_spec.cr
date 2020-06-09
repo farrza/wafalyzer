@@ -8,9 +8,11 @@ module Wafalyzer
 
   describe Waf do
     WAF_LIBRARY.each_value do |waf|
-      it "detects #{waf.name} WAF" do
-        waf.test.should be_true
-        Log.info { "#{waf.name} loaded successfully" }
+      if waf
+        it "detects #{waf.name} WAF" do
+          waf.test.should be_true
+          Log.info { "#{waf.name} loaded successfully" }
+        end
       end
     end
   end

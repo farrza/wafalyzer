@@ -41,8 +41,10 @@ module Wafalyzer
     def self.standard_analysis(responses : NamedTuple(normal: HTTP::Client::Response, attack: HTTP::Client::Response)) : Report
       report = Report.new
       WAF_LIBRARY.each_value do |waf|
-        waf << responses
-        report << waf.detected?
+        if waf
+          waf << responses
+          report << waf.detected?
+        end
       end
       report
     end

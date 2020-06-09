@@ -1,7 +1,14 @@
+require "baked_file_system"
 require "./wafparser"
 
 # Register existing WAF-s here
 module Wafalyzer
+  class FileStorage
+    extend BakedFileSystem
+
+    bake_folder "./wafs/"
+  end
+
   WAF_FILES = {
     "arvancloud.json",
     "cloudflare.json",
@@ -9,17 +16,14 @@ module Wafalyzer
     "wpcerber.json",
   }
 
-  WAF_LIBRARY = Hash(String, Waf).new
-
-  directory = __DIR__ + "/wafs/"
-
-  WAF_FILES.each do |waf_file|
-    path = Path.new(directory + waf_file)
-
-    waf = WafParser.parse(path)
-
-    if waf
-      WAF_LIBRARY[waf.name.downcase] = waf
-    end
-  end
+  {% begin %}
+    WAF_LIBRARY = {
+      {% for file in WAF_FILES%}
+        {{file}} => WafParser.parse(FileStorage.get({{file}}).gets_to_end),
+      {% end %}
+    }
+  {% end %}
 end
+
+
+
